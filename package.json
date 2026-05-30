@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "prebuild": "node scripts/fetch-content.mjs",
+    "content:clone": "node scripts/fetch-content.mjs"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
