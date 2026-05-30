@@ -4,7 +4,7 @@ import { getCachedAlbum, setCachedAlbum } from "./cache";
 const API_BASE = process.env.NETEASE_API_BASE;
 
 export async function fetchAlbumDetail(
-  albumId: number
+  albumId: number,
 ): Promise<NeteaseAlbum | null> {
   // 先查缓存
   const cached = getCachedAlbum(albumId);
@@ -14,12 +14,15 @@ export async function fetchAlbumDetail(
 
   // 缓存未命中，调用 API
   if (!API_BASE) {
-    console.warn("NETEASE_API_BASE not set, skipping API call for album", albumId);
+    console.warn(
+      "NETEASE_API_BASE not set, skipping API call for album",
+      albumId,
+    );
     return null;
   }
 
   try {
-    const url = new URL("/album/detail", API_BASE);
+    const url = new URL("/album", API_BASE);
     url.searchParams.set("id", String(albumId));
 
     const res = await fetch(url.toString());
