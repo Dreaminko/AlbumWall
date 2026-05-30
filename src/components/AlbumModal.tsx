@@ -12,7 +12,11 @@ export default function AlbumModal({ children }: AlbumModalProps) {
   const router = useRouter();
 
   const onDismiss = useCallback(() => {
-    router.back();
+    if (window.history.length > 1) {
+      router.back();
+    } else {
+      router.push("/");
+    }
   }, [router]);
 
   // Close on Escape key
@@ -57,9 +61,7 @@ export default function AlbumModal({ children }: AlbumModalProps) {
       </button>
 
       {/* 内容 */}
-      <div className="min-h-screen md:h-screen">
-        {children}
-      </div>
+      <div className="min-h-screen md:h-screen">{children}</div>
     </motion.div>
   );
 }
