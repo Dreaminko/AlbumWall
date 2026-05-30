@@ -11,11 +11,7 @@ interface AlbumCardProps {
 
 export default function AlbumCard({ album, priority = false }: AlbumCardProps) {
   return (
-    <Link
-      href={`/album/${album.slug}`}
-      className="block break-inside-avoid mb-4 group"
-      scroll={false}
-    >
+    <Link href={`/album/${album.slug}`} className="block group" scroll={false}>
       <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100 transition-all duration-300 group-hover:scale-[1.03] group-hover:shadow-lg">
         {album.coverUrl ? (
           <Image
