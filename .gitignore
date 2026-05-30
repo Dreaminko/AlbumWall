@@ -33,6 +33,10 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# agent files
+AGENTS.md
+CLAUDE.md
+
 # content (fetched at build time from separate repo)
 /content/
 
@@ -45,3 +49,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+AGENTS.md
+CLAUDE.md
