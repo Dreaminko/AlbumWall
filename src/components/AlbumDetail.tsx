@@ -52,7 +52,7 @@ export default function AlbumDetail({ album }: AlbumDetailProps) {
             <div className="mt-3 flex items-center gap-3 text-sm text-gray-400">
               {album.genre && (
                 <>
-                  <span className="text-gray-500 font-medium">
+                  <span className="text-gray-400 font-medium">
                     {album.genre}
                   </span>
                   <span>·</span>
