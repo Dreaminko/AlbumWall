@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Album Wall",
-  description: "Personal album review blog",
+  description: "Personal album recommend blog",
 };
 
 export default function RootLayout({
