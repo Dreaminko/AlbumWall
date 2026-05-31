@@ -16,6 +16,7 @@ export interface Album {
   year: number;
   trackCount: number;
   date: string; // 乐评日期
+  genre?: string; // 音乐流派
   reviewContent: string; // MDX 编译后的内容
 }
 
@@ -29,4 +30,5 @@ export interface AlbumFrontmatter {
   artist?: string;
   album?: string;
   date: string;
+  genre?: string;
 }

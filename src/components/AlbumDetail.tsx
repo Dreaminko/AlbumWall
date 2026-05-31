@@ -50,6 +50,14 @@ export default function AlbumDetail({ album }: AlbumDetailProps) {
             <h1 className="text-3xl font-bold leading-tight">{album.name}</h1>
             <p className="mt-2 text-xl text-gray-500">{album.artist}</p>
             <div className="mt-3 flex items-center gap-3 text-sm text-gray-400">
+              {album.genre && (
+                <>
+                  <span className="text-gray-500 font-medium">
+                    {album.genre}
+                  </span>
+                  <span>·</span>
+                </>
+              )}
               <span>{album.year}</span>
               {album.trackCount > 0 && (
                 <>

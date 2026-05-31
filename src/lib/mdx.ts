@@ -40,6 +40,7 @@ export function getAllMdxFiles(): MdxFile[] {
       artist: data.artist ? String(data.artist) : undefined,
       album: data.album ? String(data.album) : undefined,
       date: normalizeDate(data.date),
+      genre: data.genre ? String(data.genre) : undefined,
     };
 
     return {

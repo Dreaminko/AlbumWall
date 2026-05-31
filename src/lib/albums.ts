@@ -32,6 +32,7 @@ export const getAlbums = cache(async (): Promise<Album[]> => {
         year,
         trackCount,
         date: frontmatter.date,
+        genre: frontmatter.genre,
         reviewContent: content,
       } satisfies Album;
     }),
@@ -73,6 +74,7 @@ export async function getAlbumBySlug(slug: string): Promise<Album | undefined> {
     year,
     trackCount,
     date: frontmatter.date,
+    genre: frontmatter.genre,
     reviewContent: content,
   };
 }
