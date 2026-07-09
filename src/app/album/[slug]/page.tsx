@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAlbumBySlug, getAlbums } from "@/lib/albums";
+import { getAlbumBySlug } from "@/lib/albums";
+import { getAllMdxSlugs } from "@/lib/mdx";
 import AlbumDetail from "@/components/AlbumDetail";
 import BackButton from "./back-button";
 
@@ -53,10 +54,7 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const albums = await getAlbums();
-  return albums.map((album) => ({
-    slug: album.slug,
-  }));
+  return getAllMdxSlugs().map((slug) => ({ slug }));
 }
 
 export default async function AlbumPage({ params }: AlbumPageProps) {
@@ -68,7 +66,7 @@ export default async function AlbumPage({ params }: AlbumPageProps) {
   }
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white md:h-screen md:overflow-hidden">
       {/* 返回按钮 - 仅独立页面显示 */}
       <BackButton />
       <AlbumDetail album={album} />

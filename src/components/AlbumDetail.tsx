@@ -8,10 +8,10 @@ interface AlbumDetailProps {
 
 export default function AlbumDetail({ album }: AlbumDetailProps) {
   return (
-    <div className="flex flex-col md:flex-row h-full">
+    <div className="flex h-full flex-col md:flex-row">
       {/* 封面区域 */}
-      <div className="md:w-1/2 md:sticky md:top-0 md:h-screen shrink-0">
-        <div className="relative aspect-square md:aspect-auto md:h-full w-full bg-gray-100">
+      <div className="shrink-0 md:h-full md:w-1/2">
+        <div className="relative aspect-square w-full bg-gray-100 md:h-full md:aspect-auto">
           {album.coverUrl ? (
             <Image
               src={album.coverUrl}
@@ -43,7 +43,7 @@ export default function AlbumDetail({ album }: AlbumDetailProps) {
       </div>
 
       {/* 乐评区域 */}
-      <div className="md:w-1/2 overflow-y-auto">
+      <div className="overflow-y-auto md:min-h-0 md:w-1/2">
         <div className="px-6 py-8 md:px-10 md:py-12">
           {/* 元数据 */}
           <div className="mb-8">

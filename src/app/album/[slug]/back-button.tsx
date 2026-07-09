@@ -5,17 +5,22 @@ import { useRouter } from "next/navigation";
 export default function BackButton() {
   const router = useRouter();
 
+  const handleBack = () => {
+    const referrer = document.referrer;
+    const cameFromThisSite =
+      referrer && new URL(referrer).origin === window.location.origin;
+
+    if (cameFromThisSite) {
+      router.back();
+    } else {
+      router.push("/");
+    }
+  };
+
   return (
     <button
-      onClick={() => {
-        // 有浏览器历史就返回，没有就跳首页
-        if (window.history.length > 1) {
-          router.back();
-        } else {
-          router.push("/");
-        }
-      }}
-      className="fixed top-4 left-4 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 backdrop-blur-sm shadow-md hover:bg-white transition-colors"
+      onClick={handleBack}
+      className="fixed top-4 left-4 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 backdrop-blur-sm shadow-md transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-500"
       aria-label="Go back"
     >
       <svg

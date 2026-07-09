@@ -11,6 +11,21 @@ export interface MdxFile {
   content: string;
 }
 
+function getMdxFilenames(): string[] {
+  if (!fs.existsSync(CONTENT_DIR)) {
+    return [];
+  }
+
+  return fs
+    .readdirSync(CONTENT_DIR)
+    .filter((filename) => filename.endsWith(".mdx"));
+}
+
+function getSlugFromFilename(filename: string): string {
+  const slugMatch = filename.match(/^\d{4}-\d{2}-\d{2}-(.+)\.mdx$/);
+  return slugMatch ? slugMatch[1] : filename.replace(/\.mdx$/, "");
+}
+
 function normalizeDate(value: unknown): string {
   if (value instanceof Date) {
     return value.toISOString().split("T")[0];
@@ -18,35 +33,46 @@ function normalizeDate(value: unknown): string {
   return String(value ?? "");
 }
 
+function readMdxFile(filename: string): MdxFile {
+  const filePath = path.join(CONTENT_DIR, filename);
+  const raw = fs.readFileSync(filePath, "utf-8");
+  const { data, content } = matter(raw);
+
+  // 从文件名提取 slug: {yyyy-mm-dd}-{slug}.mdx
+  const slug = getSlugFromFilename(filename);
+
+  // Normalize: gray-matter 会将 date 解析为 Date 对象，需要转回字符串
+  const frontmatter: AlbumFrontmatter = {
+    id: Number(data.id),
+    artist: data.artist ? String(data.artist) : undefined,
+    album: data.album ? String(data.album) : undefined,
+    date: normalizeDate(data.date),
+    genre: data.genre ? String(data.genre) : undefined,
+  };
+
+  return {
+    slug,
+    frontmatter,
+    content,
+  };
+}
+
 export function getAllMdxFiles(): MdxFile[] {
-  if (!fs.existsSync(CONTENT_DIR)) {
-    return [];
+  return getMdxFilenames().map(readMdxFile);
+}
+
+export function getAllMdxSlugs(): string[] {
+  return getMdxFilenames().map(getSlugFromFilename);
+}
+
+export function getMdxFileBySlug(slug: string): MdxFile | undefined {
+  const filename = getMdxFilenames().find(
+    (candidate) => getSlugFromFilename(candidate) === slug,
+  );
+
+  if (!filename) {
+    return undefined;
   }
 
-  const files = fs.readdirSync(CONTENT_DIR).filter((f) => f.endsWith(".mdx"));
-
-  return files.map((filename) => {
-    const filePath = path.join(CONTENT_DIR, filename);
-    const raw = fs.readFileSync(filePath, "utf-8");
-    const { data, content } = matter(raw);
-
-    // 从文件名提取 slug: {yyyy-mm-dd}-{slug}.mdx
-    const slugMatch = filename.match(/^\d{4}-\d{2}-\d{2}-(.+)\.mdx$/);
-    const slug = slugMatch ? slugMatch[1] : filename.replace(/\.mdx$/, "");
-
-    // Normalize: gray-matter 会将 date 解析为 Date 对象，需要转回字符串
-    const frontmatter: AlbumFrontmatter = {
-      id: Number(data.id),
-      artist: data.artist ? String(data.artist) : undefined,
-      album: data.album ? String(data.album) : undefined,
-      date: normalizeDate(data.date),
-      genre: data.genre ? String(data.genre) : undefined,
-    };
-
-    return {
-      slug,
-      frontmatter,
-      content,
-    };
-  });
+  return readMdxFile(filename);
 }

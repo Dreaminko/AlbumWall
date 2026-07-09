@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
-import { getAlbumBySlug, getAlbums } from "@/lib/albums";
+import { getAlbumBySlug } from "@/lib/albums";
+import { getAllMdxSlugs } from "@/lib/mdx";
 import AlbumDetail from "@/components/AlbumDetail";
 import AlbumModal from "@/components/AlbumModal";
 
@@ -9,8 +10,7 @@ interface ModalAlbumPageProps {
 
 // 预渲染所有拦截路由，消除 Vercel 冷启动
 export async function generateStaticParams() {
-  const albums = await getAlbums();
-  return albums.map((album) => ({ slug: album.slug }));
+  return getAllMdxSlugs().map((slug) => ({ slug }));
 }
 
 export default async function ModalAlbumPage({ params }: ModalAlbumPageProps) {
