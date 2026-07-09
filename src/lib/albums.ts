@@ -46,35 +46,37 @@ export const getAlbums = cache(async (): Promise<Album[]> => {
   return albums;
 });
 
-export async function getAlbumBySlug(slug: string): Promise<Album | undefined> {
-  // 只读取目标 MDX，不加载所有专辑，避免 Vercel 冷启动超时
-  const mdxFiles = getAllMdxFiles();
-  const file = mdxFiles.find((f) => f.slug === slug);
+export const getAlbumBySlug = cache(
+  async (slug: string): Promise<Album | undefined> => {
+    // 只读取目标 MDX，不加载所有专辑，避免 Vercel 冷启动超时
+    const mdxFiles = getAllMdxFiles();
+    const file = mdxFiles.find((f) => f.slug === slug);
 
-  if (!file) return undefined;
+    if (!file) return undefined;
 
-  const { frontmatter, content } = file;
-  const apiData = await fetchAlbumDetail(frontmatter.id);
+    const { frontmatter, content } = file;
+    const apiData = await fetchAlbumDetail(frontmatter.id);
 
-  const name = apiData?.name ?? frontmatter.album ?? "Unknown Album";
-  const artist =
-    apiData?.artist?.name ?? frontmatter.artist ?? "Unknown Artist";
-  const coverUrl = apiData?.picUrl ?? "";
-  const year = apiData
-    ? new Date(apiData.publishTime).getFullYear()
-    : new Date(frontmatter.date).getFullYear();
-  const trackCount = apiData?.size ?? 0;
+    const name = apiData?.name ?? frontmatter.album ?? "Unknown Album";
+    const artist =
+      apiData?.artist?.name ?? frontmatter.artist ?? "Unknown Artist";
+    const coverUrl = apiData?.picUrl ?? "";
+    const year = apiData
+      ? new Date(apiData.publishTime).getFullYear()
+      : new Date(frontmatter.date).getFullYear();
+    const trackCount = apiData?.size ?? 0;
 
-  return {
-    slug,
-    neteaseId: frontmatter.id,
-    name,
-    artist,
-    coverUrl,
-    year,
-    trackCount,
-    date: frontmatter.date,
-    genre: frontmatter.genre,
-    reviewContent: content,
-  };
-}
+    return {
+      slug,
+      neteaseId: frontmatter.id,
+      name,
+      artist,
+      coverUrl,
+      year,
+      trackCount,
+      date: frontmatter.date,
+      genre: frontmatter.genre,
+      reviewContent: content,
+    };
+  },
+);

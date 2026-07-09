@@ -16,8 +16,8 @@ export default function AlbumGrid({ albums }: AlbumGridProps) {
 
   return (
     <div className="grid grid-cols-2 gap-4 px-4 pt-4 sm:grid-cols-3 lg:grid-cols-5">
-      {albums.map((album, index) => (
-        <AlbumCard key={album.slug} album={album} priority={index < 8} />
+      {albums.map((album) => (
+        <AlbumCard key={album.slug} album={album} />
       ))}
     </div>
   );

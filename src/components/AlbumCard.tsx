@@ -6,10 +6,9 @@ import type { Album } from "@/types/album";
 
 interface AlbumCardProps {
   album: Album;
-  priority?: boolean;
 }
 
-export default function AlbumCard({ album, priority = false }: AlbumCardProps) {
+export default function AlbumCard({ album }: AlbumCardProps) {
   return (
     <Link href={`/album/${album.slug}`} className="block group" scroll={false}>
       <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100 transition-all duration-300 group-hover:scale-[1.03] group-hover:shadow-lg">
@@ -20,8 +19,6 @@ export default function AlbumCard({ album, priority = false }: AlbumCardProps) {
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1280px) 25vw, 20vw"
             className="object-cover"
-            priority={priority}
-            unoptimized
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-gray-200 text-gray-400">
