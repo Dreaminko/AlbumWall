@@ -20,6 +20,7 @@ export default function AlbumDetail({ album }: AlbumDetailProps) {
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
               preload
+              unoptimized
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-gray-200 text-gray-400">

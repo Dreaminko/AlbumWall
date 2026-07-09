@@ -19,6 +19,7 @@ export default function AlbumCard({ album }: AlbumCardProps) {
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1280px) 25vw, 20vw"
             className="object-cover"
+            unoptimized
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-gray-200 text-gray-400">
