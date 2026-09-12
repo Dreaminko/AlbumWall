@@ -72,7 +72,7 @@ export default function AlbumDetail({ album }: AlbumDetailProps) {
 
           {/* MDX 乐评内容 */}
           <div className="prose">
-            <ReviewContent content={album.reviewContent} />
+            <ReviewContent slug={album.slug} />
           </div>
         </div>
       </div>

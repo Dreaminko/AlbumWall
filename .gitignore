@@ -46,6 +46,12 @@ CLAUDE.md
 # vercel
 .vercel
 
+# Cloudflare and generated content
+.open-next/
+.wrangler/
+.dev.vars*
+/src/generated/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

@@ -1,12 +1,3 @@
-export interface NeteaseAlbum {
-  id: number;
-  name: string;
-  picUrl: string;
-  artist: { name: string };
-  publishTime: number;
-  size: number; // 曲目数
-}
-
 export interface Album {
   slug: string;
   neteaseId: number;
@@ -17,18 +8,5 @@ export interface Album {
   trackCount: number;
   date: string; // 乐评日期
   genre?: string; // 音乐流派
-  reviewContent: string; // MDX 编译后的内容
-}
-
-export interface CacheEntry {
-  data: NeteaseAlbum;
-  cachedAt: number;
-}
-
-export interface AlbumFrontmatter {
-  id: number;
-  artist?: string;
-  album?: string;
-  date: string;
-  genre?: string;
+  reviewContent: string; // MDX 原文，用于生成页面摘要
 }

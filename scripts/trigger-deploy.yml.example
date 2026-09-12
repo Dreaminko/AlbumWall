@@ -1,5 +1,5 @@
-# content-repo/.github/workflows/trigger-deploy.yml
-name: Trigger Vercel Deploy
+# Place in the content repository: .github/workflows/trigger-deploy.yml
+name: Trigger Cloudflare Deploy
 
 on:
   push:
@@ -9,6 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Vercel Deploy Hook
-        run: |
-          curl -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}"
+      - name: Trigger Workers Builds
+        env:
+          DEPLOY_HOOK: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}
+        run: curl --fail-with-body --silent --show-error -X POST "$DEPLOY_HOOK"

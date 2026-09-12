@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getAlbumBySlug } from "@/lib/albums";
-import { getAllMdxSlugs } from "@/lib/mdx";
+import { getAllMdxSlugs } from "@/lib/albums";
 import AlbumDetail from "@/components/AlbumDetail";
 import AlbumModal from "@/components/AlbumModal";
 
@@ -8,7 +8,9 @@ interface ModalAlbumPageProps {
   params: Promise<{ slug: string }>;
 }
 
-// 预渲染所有拦截路由，消除 Vercel 冷启动
+export const dynamicParams = false;
+
+// 预渲染已发布文章的弹窗路由。
 export async function generateStaticParams() {
   return getAllMdxSlugs().map((slug) => ({ slug }));
 }

@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAlbumBySlug } from "@/lib/albums";
-import { getAllMdxSlugs } from "@/lib/mdx";
+import { getAllMdxSlugs } from "@/lib/albums";
 import AlbumDetail from "@/components/AlbumDetail";
 import BackButton from "./back-button";
 
 interface AlbumPageProps {
   params: Promise<{ slug: string }>;
 }
+
+export const dynamicParams = false;
 
 function createDescription(content: string): string {
   return content
