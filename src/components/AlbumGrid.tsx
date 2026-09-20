@@ -13,9 +13,9 @@ function AnimatedAlbum({ album, reduceMotion }: { album: Album; reduceMotion: bo
     <motion.div
       layout="position"
       inert={!isPresent}
-      initial={{ opacity: 0, scale: reduceMotion ? 1 : 0.97 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: reduceMotion ? 1 : 0.97 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       transition={{ duration: reduceMotion ? 0 : 0.16, layout: { duration: reduceMotion ? 0 : 0.32, ease: [0.22, 1, 0.36, 1] } }}
     >
       <AlbumCard album={album} />

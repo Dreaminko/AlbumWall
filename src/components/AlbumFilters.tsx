@@ -8,7 +8,7 @@ interface AlbumFiltersProps {
   onSelect: (tag: AlbumTag | null) => void;
 }
 
-const tagClassName = "min-h-11 shrink-0 cursor-pointer rounded-full border border-black/5 bg-[#f5f5f7] px-4 text-sm font-medium whitespace-nowrap text-[#1d1d1f] transition-colors duration-150 hover:bg-[#e8e8ed] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0071e3] aria-pressed:border-transparent aria-pressed:bg-[#0071e3] aria-pressed:text-white motion-reduce:transition-none";
+const tagClassName = "min-h-11 max-w-full shrink-0 cursor-pointer rounded-full border border-black/5 bg-[#f5f5f7] px-4 py-2 text-sm font-medium whitespace-normal [overflow-wrap:anywhere] text-[#1d1d1f] transition-colors duration-150 hover:bg-[#e8e8ed] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0071e3] aria-pressed:border-transparent aria-pressed:bg-[#0071e3] aria-pressed:text-white motion-reduce:transition-none";
 
 function FilterTag({ ref, tag, selected, onSelect, reduceMotion }: {
   ref?: Ref<HTMLButtonElement>;
@@ -104,7 +104,7 @@ export default function AlbumFilters({ tags, selected, onSelect }: AlbumFiltersP
           ref={contentRef}
           role="group"
           aria-label={activeType === "artist" ? "Artist 筛选" : "Genre 筛选"}
-          className="relative flex gap-2 overflow-x-auto px-4 pt-1 pb-4 sm:flex-wrap"
+          className="relative flex flex-wrap gap-2 px-4 pt-1 pb-4"
         >
           <button
             type="button"
