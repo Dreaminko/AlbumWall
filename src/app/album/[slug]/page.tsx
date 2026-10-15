@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { getAlbumBySlug } from "@/lib/albums";
 import { getAllMdxSlugs } from "@/lib/albums";
 import AlbumDetail from "@/components/AlbumDetail";
+import shareImages from "@/generated/share-images.json";
+import { buildAlbumShareMetadata, resolveSiteUrl } from "@/lib/share-metadata";
 import BackButton from "./back-button";
 
 interface AlbumPageProps {
@@ -10,15 +12,6 @@ interface AlbumPageProps {
 }
 
 export const dynamicParams = false;
-
-function createDescription(content: string): string {
-  return content
-    .replace(/<[^>]*>/g, " ")
-    .replace(/[#>*_`~[\]()]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .slice(0, 140);
-}
 
 export async function generateMetadata({
   params,
@@ -32,27 +25,11 @@ export async function generateMetadata({
     };
   }
 
-  const title = `${album.name} - ${album.artist} | Album Wall`;
-  const description =
-    createDescription(album.reviewContent) ||
-    `${album.artist} 的专辑《${album.name}》乐评`;
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      type: "article",
-      images: album.coverUrl ? [{ url: album.coverUrl, alt: album.name }] : [],
-    },
-    twitter: {
-      card: album.coverUrl ? "summary_large_image" : "summary",
-      title,
-      description,
-      images: album.coverUrl ? [album.coverUrl] : undefined,
-    },
-  };
+  return buildAlbumShareMetadata(
+    album,
+    resolveSiteUrl(process.env.SITE_URL, process.env.NODE_ENV === "production"),
+    shareImages[slug as keyof typeof shareImages],
+  );
 }
 
 export async function generateStaticParams() {

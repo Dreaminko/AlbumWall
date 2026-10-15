@@ -51,6 +51,8 @@ CLAUDE.md
 .wrangler/
 .dev.vars*
 /src/generated/
+/public/og/
+/.superdesign/
 
 # typescript
 *.tsbuildinfo

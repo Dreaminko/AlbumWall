@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { getAlbums } from "@/lib/albums";
 import RandomAlbumButton from "@/components/RandomAlbumButton";
+import { resolveSiteUrl } from "@/lib/share-metadata";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,6 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: resolveSiteUrl(process.env.SITE_URL, process.env.NODE_ENV === "production"),
   title: "Album Wall",
   description: "Personal album recommend blog",
 };
